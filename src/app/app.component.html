@@ -1,41 +1,7 @@
-<div class="container mt-4">
-  <h2 class="mb-3">Cadastro de Tarefas</h2>
+<!-- Menu navbar-->
 
-  <p class="text-muted">Preencha os campos para incluir uma tarefa em sua agenda</p>
-  <hr />
+<app-navbar/>
 
-  <form class="row g-3">
-    <div class="col-12">
-      <label for="titulo" class="form-label">Título da Tarefa</label>
-      <input type="text" class="form-control" id="titulo" placeholder="Digite o título aqui" />
-    </div>
+<!-- Local para renderizar os componentes conforme a navegação das rotas-->
 
-    <div class="col-md-6">
-      <label for="dataHora" class="form-label">Data e Hora da Tarefa</label>
-      <input type="datetime-local" class="form-control" id="dataHora" />
-    </div>
-
-    <div class="col-md-6 d-flex align-items-center">
-      <div class="form-check mt-4">
-        <input type="checkbox" class="form-check-input" id="finalizado" />
-        <label class="form-check-label" for="finalizado">Finalizado?</label>
-      </div>
-    </div>
-
-    <div class="col-12">
-      <label for="categoria" class="form-label">Selecione a Categoria</label>
-      <select class="form-select" id="categoria">
-        <option value="">Escolha uma opção</option>
-        <option value="trabalho">Trabalho</option>
-        <option value="pessoal">Pessoal</option>
-        <option value="estudo">Estudo</option>
-         <option value="lazer">Lazer</option>
-          <option value="outros">Outros</option>
-      </select>
-    </div>
-
-    <div class="col-12 text-end">
-      <button type="submit" class="btn btn-primary">Realizar Cadastro</button>
-    </div>
-  </form>
-</div>
+<router-outlet/>
