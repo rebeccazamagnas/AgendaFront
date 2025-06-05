@@ -5,6 +5,11 @@
       <p class="card-text">Preencha os campos para incluir uma tarefa em sua agenda.</p>
       <hr />
 
+      <div *ngIf="mensagem" class="alert alert-success">
+
+        <strong> {{mensagem}}</strong>
+      </div>
+
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
         <div class="mb-3">

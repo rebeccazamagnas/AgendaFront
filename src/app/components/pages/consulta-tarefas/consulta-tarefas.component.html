@@ -1,12 +1,43 @@
 <div class="container mt-3">
-    <div class="card shadow">
-        <div class="card-body">
+  <div class="card shadow">
+    <div class="card-body">
+      <h2 class="card-title mb-3">Consulta de Tarefas</h2>
+      <p class="card-text">Listagem de tarefas cadastradas na agenda.</p>
+      <hr />
 
-            <h2 class="card-title mb-3"> Consulta de tarefas </h2>
-            <p class="card-text"> Listagem de tarefas cadastradas na agenda </p>
-            <hr />
-
-        </div>
+      <table class="table table-sm table-responsive">
+        <thead>
+          <tr>
+            <th>Título</th>
+            <th>Data</th>
+            <th>Hora</th>
+            <th>Finalizado</th>
+            <th>Categoria</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let t of tarefas">
+            <td>{{ t.titulo | uppercase }}</td>
+            <td>{{ t.data | date : 'dd/MM/yyyy' }}</td>
+            <td>{{ t.hora }}</td>
+            <td>{{ t.finalizado ? 'Sim' : 'Não' }}</td>
+            <td>{{ t.categoria.nome | uppercase }}</td>
+            <td>
+              <button class="btn btn-primary btn-sm me-2">Editar</button>
+              <button class="btn btn-danger btn-sm me-2">Excluir</button>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="6">
+              Quantidade de tarefas: {{ tarefas.length }}
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+        
     </div>
-
-    </div>
+  </div>
+</div>
