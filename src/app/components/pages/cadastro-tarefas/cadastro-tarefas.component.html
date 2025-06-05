@@ -1,43 +1,77 @@
-<div class="container mt-4">
-  <h2 class="mb-3">Cadastro de Tarefas</h2>
+<div class="container mt-3">
+  <div class="card shadow">
+    <div class="card-body">
+      <h2 class="card-title mb-3">Cadastro de Tarefas</h2>
+      <p class="card-text">Preencha os campos para incluir uma tarefa em sua agenda.</p>
+      <hr />
 
-  <p class="text-muted">Preencha os campos para incluir uma tarefa em sua agenda</p>
-  <hr />
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
-  <form class="row g-3">
-    <div class="col-12">
-      <label for="titulo" class="form-label">Título da Tarefa</label>
-      <input type="text" class="form-control" id="titulo" placeholder="Digite o título aqui" />
+        <div class="mb-3">
+          <label class="form-label">Título da tarefa:</label>
+          <input type="text" formControlName="titulo" class="form-control" placeholder="Digite o título da tarefa aqui" />
+        
+          <div class="text-danger" *ngIf="form.get('titulo')?.touched">
+            <span *ngIf="form.get('titulo')?.hasError('required')">
+              Por favor, preencha o título da tarefa.
+            </span>
+            <span *ngIf="form.get('titulo')?.hasError('minlength')">
+              Por favor, informe o título da tarefa com pelo menos 8 caracteres.
+            </span>
+            <span *ngIf="form.get('titulo')?.hasError('maxlength')">
+              Por favor, informe o título da tarefa com no máximo 100 caracteres.
+            </span>
+          </div>
+        
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Data da tarefa:</label>
+          <input type="date" formControlName="data" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Hora da tarefa:</label>
+          <input type="time" formControlName="hora" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Tarefa finalizada?</label>
+          <div>
+            <input type="radio" formControlName="finalizado" [value]="true"/> Sim
+            &nbsp;
+            <input type="radio" formControlName="finalizado" [value]="false"/> Não
+          </div>
+
+          <div class="text-danger" *ngIf="form.get('finalizado')?.touched">
+            <span *ngIf="form.get('finalizado')?.hasError('required')">
+              Por favor, informe se a tarefa está finalizada. 
+            </span>
+
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label">Selecione a categoria:</label>
+          <select formControlName="categoriaId" class="form-select">
+            <option value="">Escolha uma opção</option>
+            <option *ngFor="let c of categorias" value="{{ c.id }}">
+              {{ c.nome }}
+            </option>
+          </select>
+
+          <div class="text-danger" *ngIf="form.get('categoriaId')?.touched">
+            <span *ngIf="form.get('categoriaId')?.hasError('required')">
+              Por favor, selecione a categoria da tarefa. 
+            </span>
+
+          </div>
+        </div>
+
+        <button type="submit" [disabled]="form.invalid" class="btn btn-primary">
+          Realizar Cadastro
+        </button>
+      </form>
     </div>
-
-    <div class="col-md-6">
-      <label for="dataHora" class="form-label">Data e Hora da Tarefa</label>
-      <input type="datetime-local" class="form-control" id="dataHora" />
-    </div>
-
-    <div class="col-md-6 d-flex align-items-center">
-      <div class="form-check mt-4">
-        <input type="checkbox" class="form-check-input" id="finalizado" />
-        <label class="form-check-label" for="finalizado">Finalizado?</label>
-      </div>
-    </div>
-
-    <div class="col-12">
-      <label for="categoria" class="form-label">Selecione a Categoria</label>
-      <select class="form-select" id="categoria">
-        <option value="">Escolha uma opção</option>
-       <option *ngFor="let c of categorias" value = {{c.id}}>
-        {{c.nome}} 
-
-
-
-       </option>
-      </select>
-    </div>
-
-    <div class="col-12 text-end">
-      <button type="submit" class="btn btn-primary">Realizar Cadastro</button>
-    </div>
-  </form>
+  </div>
 </div>
-
