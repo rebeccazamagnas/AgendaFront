@@ -1,43 +1,88 @@
-<div class="container mt-3">
-  <div class="card shadow">
-    <div class="card-body">
-      <h2 class="card-title mb-3">Consulta de Tarefas</h2>
-      <p class="card-text">Listagem de tarefas cadastradas na agenda.</p>
-      <hr />
+<div>
+    <div class="card shadow w-100">
+        <div class="card-header bg-light text-dark">
+            <h4 class="card-title">Consulta de Tarefas</h4>
+            <p class="card-subtitle">Informe o período de 
+                                     datas para consultar tarefas.</p>
+        </div>
+        <div class="card-body">
 
-      <table class="table table-sm table-responsive">
-        <thead>
-          <tr>
-            <th>Título</th>
-            <th>Data</th>
-            <th>Hora</th>
-            <th>Finalizado</th>
-            <th>Categoria</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let t of tarefas">
-            <td>{{ t.titulo | uppercase }}</td>
-            <td>{{ t.data | date : 'dd/MM/yyyy' }}</td>
-            <td>{{ t.hora }}</td>
-            <td>{{ t.finalizado ? 'Sim' : 'Não' }}</td>
-            <td>{{ t.categoria.nome | uppercase }}</td>
-            <td>
-              <button class="btn btn-primary btn-sm me-2">Editar</button>
-              <button class="btn btn-danger btn-sm me-2">Excluir</button>
-            </td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <td colspan="6">
-              Quantidade de tarefas: {{ tarefas.length }}
-            </td>
-          </tr>
-        </tfoot>
-      </table>
-        
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+                <div class="row mb-3">
+                    <div class="col-md-2">
+                        <Label>Data de início:</Label>
+                        <input type="date" formControlName="dataMin" 
+                               class="form-control"/>
+                    </div>
+                    <div class="col-md-2">
+                        <label>Data de fim:</label>
+                        <input type="date" formControlName="dataMax" 
+                               class="form-control"/>
+                    </div>
+                    <div class="col-md-4">
+                        <button type="submit" [disabled]="form.invalid" 
+                            class="btn btn-success mt-4">
+                            Pesquisar tarefas
+                        </button>                        
+                    </div>
+                </div>
+
+            </form>
+
+            <table *ngIf="tarefas.length > 0" class="table table-sm 
+                                              table-responsive mt-4">
+                <thead>
+                    <tr>
+                        <th>Nome da tarefa</th>
+                        <th>Data</th>
+                        <th>Hora</th>
+                        <th>Finalizado</th>
+                        <th>Categoria</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let t of tarefas">
+                        <td>{{ t.titulo | uppercase }}</td>
+                        <td>{{ t.data | date: 'dd/MM/yyyy' }}</td>
+                        <td>{{ t.hora }}</td>
+                        <td>
+                            <span *ngIf="t.finalizado" 
+                                class="badge bg-success">
+                                SIM
+                            </span>
+                            <span *ngIf="!t.finalizado" 
+                               class="badge bg-warning">
+                                NÃO
+                            </span>
+                        </td>
+                        <td>
+                            <span class="badge bg-secondary">
+                                {{ t.categoria.nome | uppercase }}
+                            </span>
+                        </td>
+                        <td>
+                            <button class="btn btn-sm 
+                               btn-outline-primary me-1">
+                                Editar
+                            </button>
+                            <button class="btn btn-sm 
+                                btn-outline-danger me-1">
+                                Excluir
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="6">
+                            Quantidade de tarefas: {{ tarefas.length }}
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+
+        </div>
     </div>
-  </div>
 </div>
