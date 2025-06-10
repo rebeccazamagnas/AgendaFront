@@ -7,28 +7,28 @@
         </div>
         <div class="card-body">
 
-            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="row mb-3">
+    <div class="col-md-2">
+      <label>Data de início:</label>
+      <input type="date" formControlName="dataMin" class="form-control" />
+    </div>
+    <div class="col-md-2">
+      <label>Data de fim:</label>
+      <input type="date" formControlName="dataMax" class="form-control" />
+    </div>
+    <div class="col-md-4 d-flex align-items-end gap-2">
+      <button type="submit" [disabled]="form.invalid" class="btn btn-success">
+        Pesquisar tarefas
+      </button>
 
-                <div class="row mb-3">
-                    <div class="col-md-2">
-                        <Label>Data de início:</Label>
-                        <input type="date" formControlName="dataMin" 
-                               class="form-control"/>
-                    </div>
-                    <div class="col-md-2">
-                        <label>Data de fim:</label>
-                        <input type="date" formControlName="dataMax" 
-                               class="form-control"/>
-                    </div>
-                    <div class="col-md-4">
-                        <button type="submit" [disabled]="form.invalid" 
-                            class="btn btn-success mt-4">
-                            Pesquisar tarefas
-                        </button>                        
-                    </div>
-                </div>
-
-            </form>
+      <!-- Botão Limpar -->
+      <button type="button" (click)="limparFiltros()" class="btn btn-secondary">
+        Limpar
+      </button>
+    </div>
+  </div>
+</form>
 
             <table *ngIf="tarefas.length > 0" class="table table-sm 
                                               table-responsive mt-4">
@@ -63,11 +63,11 @@
                             </span>
                         </td>
                         <td>
-                            <button class="btn btn-sm 
+                            <button [routerLink]="['/pages/edicao-tarefas', t.id]" class="btn btn-sm 
                                btn-outline-primary me-1">
                                 Editar
                             </button>
-                            <button class="btn btn-sm 
+                            <button (click) = "onDelete(t)" class="btn btn-sm 
                                 btn-outline-danger me-1">
                                 Excluir
                             </button>
